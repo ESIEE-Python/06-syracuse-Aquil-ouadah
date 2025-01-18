@@ -1,11 +1,13 @@
-#### Fonctions secondaires
-
-
-# imports
+"""
+Fonction syracuse
+"""
 from plotly.graph_objects import Scatter, Figure
 
 ### NE PAS MODIFIER ###
 def syr_plot(lsyr):
+    """
+    Crée le graphique de syracuse
+    """
     title = "Syracuse" + " (n = " + str(lsyr[0]) + " )"
     fig = Figure({  'layout':   { 'title': {'text': title},
                                 'xaxis': {'title': {'text':"x"}},
@@ -14,72 +16,83 @@ def syr_plot(lsyr):
                 }
     )
 
-    x = [ i for i in range(len(lsyr)) ]
+    x = [ list(range(len(lsyr))) ]
     t = Scatter(x=x, y=lsyr, mode="lines+markers", marker_color = "blue")
     fig.add_trace(t)
     fig.show()
     # fig.write_html('fig.html', include_plotlyjs='cdn')
-    return None
 #######################
 
 def syracuse_l(n):
-    """retourne la suite de Syracuse de source n
+    """
+    Génère la suite de Syracuse à partir d'une valeur source n.
 
     Args:
-        n (int): la source de la suite
+        n (int): La source de la suite.
 
     Returns:
-        list: la suite de Syracuse de source n
+        list: La suite de Syracuse générée.
     """
-
-    # votre code ici 
     l = [ ]
+    uk = n
+    l.append(uk)
+    while uk != 1 :
+        if uk % 2 == 0 :
+            uk /= 2
+        else :
+            uk = (uk * 3) + 1
+        l.append(uk)
     return l
 
 def temps_de_vol(l):
-    """Retourne le temps de vol d'une suite de Syracuse
+    """
+    Calcule le temps de vol total de la suite de Syracuse.
 
     Args:
-        l (list): la suite de Syracuse
+        l (list): La suite de Syracuse.
 
     Returns:
-        int: le temps de vol
+        int: Le temps de vol total (nombre d'itérations pour atteindre 1).
     """
-    
-    # votre code ici
-
     n = 0
+    n = len(l)
     return n
 
 def temps_de_vol_en_altitude(l):
-    """Retourne le temps de vol en altitude d'une suite de Syracuse
+    """
+    Calcule le temps de vol en altitude de la suite de Syracuse.
+
+    Le temps de vol en altitude est défini comme le nombre d'itérations
+    où la valeur est supérieure ou égale à la valeur initiale.
 
     Args:
-        l (list): la suite de Syracuse
+        l (list): La suite de Syracuse.
 
     Returns:
-        int: le temps de vol en altitude
+        int: Le temps de vol en altitude.
     """
-
-    # votre code ici
-
     n = 0
+    for nbr in l:
+        if nbr >= l[0] :
+            n += 1
+        else :
+            break
     return n
 
 
 def altitude_maximale(l):
-    """retourne l'altitude maximale d'une suite de Syracuse
+    """
+    Détermine l'altitude maximale atteinte dans la suite de Syracuse.
 
     Args:
-        l (list): la suite de Syracuse
+        l (list): La suite de Syracuse.
 
     Returns:
-        int: l'altitude maximale
+        int: La valeur maximale atteinte dans la suite.
     """
-    
-    # votre code ici
-    
     n = 0
+    for nbr in l:
+        n = max(n, nbr)
     return n
 
 
@@ -87,14 +100,15 @@ def altitude_maximale(l):
 
 
 def main():
-
+    """
+    Main
+    """
     # vos appels à la fonction secondaire ici
-    lsyr = syracuse_l(15)
+
+    lsyr = syracuse_l(6)
     syr_plot(lsyr)
     print(temps_de_vol(lsyr))
     print(temps_de_vol_en_altitude(lsyr))
     print(altitude_maximale(lsyr))
-
-
 if __name__ == "__main__":
     main()
